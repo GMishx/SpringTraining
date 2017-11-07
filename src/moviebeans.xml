@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<context:annotation-config />
+
+	<bean id="movie" class="com.siemens.spring.bean.Movie">
+		<property name="id">
+			<value>1</value>
+		</property>
+		<property name="name">
+			<value>"Eternal sunshine of the spotless mind"</value>
+		</property>
+		<property name="price">
+			<value>450</value>
+		</property>
+	</bean>
+
+	<bean id="theatreBeanByName" class="com.siemens.spring.bean.Theatre"
+		autowire="byName">
+		<property name="id" value="1" />
+		<property name="name" value="Leela" />
+		<property name="location" value="Bengaluru" />
+		<!-- <property name="movie"> <ref bean="movieBean" /> </property> -->
+	</bean>
+
+	<bean id="theatreBeanByType" class="com.siemens.spring.bean.Theatre"
+		autowire="byType">
+		<property name="id" value="2" />
+		<property name="name" value="Sahu" />
+		<property name="location" value="Lucknow" />
+	</bean>
+
+	<bean id="theatreBeanByConstructor" class="com.siemens.spring.bean.Theatre"
+		autowire="constructor">
+		<property name="id" value="3" />
+		<property name="name" value="River Side Mall" />
+		<property name="location" value="Lucknow" />
+	</bean>
+
+	<bean id="movieService" class="com.siemens.spring.service.MovieServiceImpl" />
+
+</beans>

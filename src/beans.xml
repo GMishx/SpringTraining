@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-lazy-init="true">
+
+	<bean id="helloWorld" class="com.siemens.spring.core.HelloWorld">
+		<property name="message" value="This is it" />
+	</bean>
+
+	<bean id="add1" class="com.siemens.spring.core.Address">
+		<property name="addressId" value="1" />
+		<property name="street" value="S1" />
+		<property name="city" value="C1" />
+	</bean>
+
+	<bean id="emp1" class="com.siemens.spring.core.Employee"
+		depends-on="add1">
+		<property name="id" value="1" />
+		<property name="name" value="E1" />
+		<property name="salary" value="38000.58" />
+		<property name="address" ref="add1" />
+	</bean>
+
+	<bean id="emp2" class="com.siemens.spring.core.Employee"
+		depends-on="add2">
+		<!-- <property name="id" value="2" /> <property name="name" value="E2" 
+			/> <property name="salary" value="38020.98" /> <property name="address" ref="add2" 
+			/> -->
+		<constructor-arg value="2" />
+		<constructor-arg value="E2" />
+		<constructor-arg value="38020.98" />
+		<constructor-arg ref="add2" />
+	</bean>
+
+	<bean id="employeeDAO" class="com.siemens.spring.dao.EmployeeDAOImpl"></bean>
+
+	<bean id="employeeService" class="com.siemens.spring.service.EmployeeServiceImpl">
+		<property name="dao" ref="employeeDAO" />
+	</bean>
+
+	<bean id="collectionExample" class="com.siemens.spring.core.CollectionEx"
+		depends-on="add2">
+		<property name="aList">
+			<list>
+				<value>100</value>
+				<value>"asdasd"</value>
+				<ref bean="add2" />
+			</list>
+		</property>
+		<property name="aSet">
+			<set>
+				<value>100</value>
+				<value>100</value>
+				<value>200</value>
+				<ref bean="add2" />
+			</set>
+		</property>
+		<property name="aMap">
+			<map>
+				<entry key="12" value="12" />
+				<entry key="Add" value-ref="add2" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="add2" class="com.siemens.spring.core.Address" scope="prototype">
+		<!-- <property name="addressId" value="2" /> <property name="street" value="S2" 
+			/> <property name="city" value="C2" /> -->
+		<constructor-arg value="2" />
+		<constructor-arg value="S2" />
+		<constructor-arg value="C2" />
+	</bean>
+
+	<!-- Singleton class -->
+	<bean id="singletonBean" class="com.siemens.spring.core.SingletonExample"
+		factory-method="getSingletonExample" />
+
+
+	<bean id="serviceLocator" class="com.siemens.spring.core.ServiceLocator" />
+	<bean id="empService" factory-bean="serviceLocator"
+		factory-method="getEmployeeService" />
+
+</beans>
