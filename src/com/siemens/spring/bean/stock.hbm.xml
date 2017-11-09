@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping.dtd">
+<hibernate-mapping>
+	<class name="com.siemens.spring.bean.Stock" table="stocks">
+		<meta attribute="class-description">
+			This class contains the stock detail.
+		</meta>
+		<id name="stockId" column="StockID" type="int">
+			<generator class="increment" />
+		</id>
+		<property name="stockName" column="Name" type="string" />
+		<property name="price" column="Price" type="double" />
+	</class>
+</hibernate-mapping>
